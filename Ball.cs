@@ -7,6 +7,7 @@ public class Ball
 {
     int debugcontroller = 0;
     Player Player = new Player();
+    Walls Wall = new Walls();
     public Vector2 Ballposition;
     public Boolean Started = false;
 
@@ -14,6 +15,7 @@ public class Ball
 
     public int Speed = 0;
     public int BallRadius = 15;
+    public int AmountOfBall = 5;
 
     public void Update()
     {
@@ -22,6 +24,9 @@ public class Ball
         Player.Update();
         DirectionDirector();
         BouncePlayer();
+        BounceWall();
+        DebugRotate();
+        LostBallCheck();
     }
 
     void StartBall(Boolean start) //starting sequence to send ball
@@ -30,7 +35,7 @@ public class Ball
         {
             //attaches ball to player
             Ballposition.X = Player.position.X;
-            Ballposition.Y = 665;
+            Ballposition.Y = 650;
 
             //draws ball
             Draw.FillColor = Color.Red;
@@ -64,11 +69,27 @@ public class Ball
         if (Player.HasCollided(Started, Ballposition) == true) //Checks if game started and collision
         {
             Direction = Player.WhichSide(Ballposition); //Sets direction
-            //Speed += 20; //Sends ball
+            Speed += 20; //Sends ball
         }
     }
 
-    void DirectionDirector() // Sends the ball to where it must go
+    void BounceWall()
+    {
+        if (Wall.LeftWallCollide(Ballposition) == true) {Direction = Wall.LeftWallDirect(Direction);}
+        if (Wall.RightWallCollide(Ballposition) == true) {Direction = Wall.RightWallDirect(Direction);}
+        if (Wall.TopWallCollide(Ballposition) == true) {Direction = Wall.TopWallDirect(Direction);}
+    }
+
+    void LostBallCheck()
+    {
+        if (Wall.BottomWallCollide(Ballposition) == true)
+        {
+            Started = false;
+            AmountOfBall -= 1;
+        }
+    }
+
+        void DirectionDirector() // Sends the ball to where it must go
     {
         if (Direction == "Up")
         {
@@ -127,10 +148,10 @@ public class Ball
         debugcycle[6] = "DownRight";
         debugcycle[7] = "DownLeft";
 
-        if (Input.IsKeyboardKeyPressed(KeyboardKey.Space) == true) { debugcontroller += 1;}
+        if (Input.IsKeyboardKeyPressed(KeyboardKey.Space) == true) {debugcontroller += 1;}
         if (debugcontroller == 8) { debugcontroller = 0; }
 
 
-        Direction = debugcycle[debugcontroller];
+        if (Input.IsKeyboardKeyPressed(KeyboardKey.Space) == true) { Direction = debugcycle[debugcontroller];}
     }
 }

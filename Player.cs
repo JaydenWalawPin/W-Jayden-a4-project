@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Numerics;
-using System.Runtime.Serialization;
 
 namespace MohawkGame2D;
 
@@ -10,7 +9,6 @@ public class Player
     public Vector2 position;
     public Vector2 HitboxTCL; //Top Corner Left
     public Vector2 HitboxTCR; // Top Corner Right
-    public int test = 1;
 
     public void Setup()
     {
@@ -36,17 +34,17 @@ public class Player
     void CapsuleBoundaries()
     {
         //Top Corner Left XY
-        HitboxTCL.X = Input.GetMouseX() -30;
-        HitboxTCL.Y = 720;
+        HitboxTCL.X = position.X -40;
+        HitboxTCL.Y = 680;
         //Top Corner Right XY
-        HitboxTCR.X = Input.GetMouseX() + 30;
-        HitboxTCR.Y = 720;
+        HitboxTCR.X = position.X + 40;
+        HitboxTCR.Y = 680;
     }
     public bool HasCollided(Boolean Start, Vector2 BallPos) // Determines if the ball has collided with the capsule
     {
         if (Start == true) // Checks if the ball is free
         {
-            if ((BallPos.X > HitboxTCL.X) || (BallPos.X < HitboxTCR.X) || (BallPos.Y > 720)) // checks if Ball is colliding with Capsule
+            if ((BallPos.X > HitboxTCL.X) && (BallPos.X < HitboxTCR.X) && (BallPos.Y > HitboxTCL.Y) && (BallPos.Y < HitboxTCL.Y + 20)) // checks if Ball is colliding with Capsule
             {
                 return true; 
             }
