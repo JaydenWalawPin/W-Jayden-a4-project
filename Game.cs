@@ -10,12 +10,18 @@ namespace MohawkGame2D
     /// </summary>
     public class Game
     {
+        Walls Wall = new Walls();
+        Player Player = new Player();
+        Ball Ball = new Ball();
+
         /// <summary>
         ///     Setup runs once before the game loop begins.
         /// </summary>
         public void Setup()
         {
-
+            Window.SetSize(600, 800);
+            Window.SetTitle("Arkavoid");
+            Window.TargetFPS = 60;
         }
 
         /// <summary>
@@ -23,7 +29,9 @@ namespace MohawkGame2D
         /// </summary>
         public void Update()
         {
-
+            Window.ClearBackground(255);
+            Player.Update();
+            Ball.Update();
         }
     }
 
