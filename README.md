@@ -1,1 +1,8 @@
-# W-Jayden-a4-project
+# To-Do
+
+- Barriers
+- Scores
+- Game Over
+- Win
+- Power ups
+- Gimmicks

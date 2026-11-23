@@ -14,6 +14,8 @@ namespace MohawkGame2D
         Player Player = new Player();
         Ball Ball = new Ball();
 
+        Barriers Barrier = new Barriers();
+
         /// <summary>
         ///     Setup runs once before the game loop begins.
         /// </summary>
@@ -32,6 +34,7 @@ namespace MohawkGame2D
             Window.ClearBackground(255);
             Player.Update();
             Ball.Update();
+            Barrier.Update();
         }
     }
 
